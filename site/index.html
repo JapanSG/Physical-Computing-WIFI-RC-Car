@@ -1,28 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WIFI RC Car Control</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>WIFI RC Car Control — RC-Car-WiFi Project</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>WIFI RC Car Controller</h1>
-    <div id="controls">
-        <!-- Control buttons will go here -->
-    </div>
+    <header class="site-header">
+        <div class="brand">
+            <h1>RC-Car-WiFi</h1>
+            <p class="tag">ESP32 + Arduino IDE — Wifi controlled RC car</p>
+        </div>
+        <nav class="top-nav">
+            <a href="#project">About</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#controls">Controls</a>
+            <a href="#arduino">Arduino</a>
+            <a href="#video">Video</a>
+            <a href="#team">Team</a>
+        </nav>
+    </header>
 
-    <script>
-        // JavaScript code will go here
-    </script>
-<script src="script.js"></script>
+    <main>
+        <section id="hero" class="hero">
+            <h2>Control the car from your browser</h2>
+            <p>Use keyboard or on-screen buttons to send commands to an ESP32-powered RC car over WiFi.</p>
+            <div class="hero-actions">
+                <a class="btn primary" href="#controls">Try controls</a>
+                <a class="btn" href="#gallery">View photos</a>
+            </div>
+        </section>
+
+        <section id="gallery" class="card">
+            <h3>Gallery</h3>
+            <div class="gallery-wrap">
+                <button id="prevBtn" class="carousel-btn">‹</button>
+                <div id="carousel" class="carousel">
+                    <!-- Images will be injected by script.js -->
+                </div>
+                <button id="nextBtn" class="carousel-btn">›</button>
+            </div>
+            <p class="muted">Images are loaded from the site/images folder. Filenames describe angles.</p>
+        </section>
+
+        <section id="controls" class="card controls-section">
+            <h3>Remote Controls</h3>
+            <div class="controls-grid">
+                <button class="control-btn" data-cmd="forward">▲ Forward</button>
+                <div class="middle-row">
+                    <button class="control-btn" data-cmd="left">◄ Left</button>
+                    <button id="stopBtn" class="control-btn stop" data-cmd="stop">■ Stop</button>
+                    <button class="control-btn" data-cmd="right">► Right</button>
+                </div>
+                <button class="control-btn" data-cmd="back">▼ Back</button>
+            </div>
+            <div class="control-hint">
+                <p>Keyboard: W/A/S/D or arrow keys to control. Click buttons to send commands.</p>
+                <label>
+                    Controller base URL:
+                    <input id="controllerUrl" type="text" placeholder="http://192.168.4.1/command" />
+                </label>
+            </div>
+        </section>
+
+        <section id="arduino" class="card">
+            <h3>Arduino (ESP32) Source</h3>
+            <p class="muted">Source file loaded from ../RC-Car-WiFi-wAxis/RC-Car-WiFi-wAxis.ino</p>
+            <div class="code-actions">
+                <button id="loadCodeBtn" class="btn">Load Arduino Source</button>
+                <button id="downloadCodeBtn" class="btn">Download</button>
+            </div>
+            <pre id="codeView" class="code-view"><code>// Click "Load Arduino Source" to fetch the .ino file</code></pre>
+        </section>
+
+        <section id="video" class="card">
+            <h3>Presentation Video</h3>
+            <div class="video-wrap">
+                <!-- Replace VIDEO_ID with actual YouTube video id -->
+                <iframe id="ytPlayer" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section id="team" class="card">
+            <h3>Team Members</h3>
+            <div class="team-grid">
+                <div class="member">
+                    <img src="https://via.placeholder.com/160x160?text=Member+1" alt="Member 1">
+                    <h4>Member One</h4>
+                    <p class="muted">Student ID: 0123456</p>
+                </div>
+                <div class="member">
+                    <img src="https://via.placeholder.com/160x160?text=Member+2" alt="Member 2">
+                    <h4>Member Two</h4>
+                    <p class="muted">Student ID: 0123457</p>
+                </div>
+                <div class="member">
+                    <img src="https://via.placeholder.com/160x160?text=Member+3" alt="Member 3">
+                    <h4>Member Three</h4>
+                    <p class="muted">Student ID: 0123458</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="project" class="card">
+            <h3>About the Project</h3>
+            <p>
+                RC-Car-WiFi is a student project implementing a remote-controlled car using an ESP32 microcontroller
+                programmed with the Arduino IDE. The car hosts a simple WiFi-based control API and can be driven from
+                any web browser. Controls include forward, back, left, right and stop. The website demonstrates the
+                hardware, shows photos from multiple angles, contains the Arduino source code and embeds the project
+                presentation video.
+            </p>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <small>© RC-Car-WiFi Project — Placeholders used for member photos and video. Update controller URL and VIDEO_ID.</small>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
