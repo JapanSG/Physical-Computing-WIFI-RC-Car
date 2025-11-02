@@ -52,7 +52,7 @@
 
     // If server exposes directory listing, this will parse it. Otherwise add filenames to fallbackImages.
     const fallbackImages = [
-        // Add image filenames relative to site/images here, e.g. "front.jpg", "left-45.jpg"
+        // Add image filenames relative to docs/images here, e.g. "front.jpg", "left-45.jpg"
         // "front.jpg", "left.jpg", "right.jpg"
     ];
 
@@ -77,7 +77,7 @@
         } catch (e) {
             // ignore and fall back
         }
-        return fallbackImages.map(fn => 'images/' + fn);
+        return fallbackImages.map(fn => 'docs/images/' + fn);
     }
 
     function makeImgEl(src, alt) {
@@ -93,7 +93,7 @@
         if (!imgUrls.length) {
             const p = document.createElement('p');
             p.className = 'muted';
-            p.textContent = 'No images found in site/images. Add files to that folder or update fallbackImages in script.js.';
+            p.textContent = 'No images found in docs/images. Add files to that folder or update fallbackImages in script.js.';
             carousel.appendChild(p);
             return;
         }
