@@ -5,7 +5,7 @@ A WIFI Remote Control car project
   
   จุดประสงค์ในการทำโปรเจคของพวกเราในครั้งนี้คือ ความท้าทายในการทำในสิ่งที่ไม่เคยได้ลองทำ หาประสบการณ์ เพิ่มความรู้ความสามารถให้กับตัวเอง
 
-หน้าเว็บไซต์: https://japansg.github.io/Physical-Computing-WIFI-RC-Car/
+หน้าเว็บไซต์: https://japansg.github.io/Physical-Computing-WIFI-RC-Car/  
 Clip VDO: https://youtu.be/S_QohmxtWRE?si=_dwR9RxFVTYri6zr
 
 ## Member
