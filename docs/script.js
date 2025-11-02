@@ -136,7 +136,7 @@
     const downloadCodeBtn = document.getElementById('downloadCodeBtn');
 
     async function loadArduinoCode() {
-        const inoPath = '../RC-Car-WiFi-wAxis/RC-Car-WiFi-wAxis.ino';
+        const inoPath = 'RC-Car-WiFi-wAxis/RC-Car-WiFi-wAxis.ino';
         try {
             const r = await fetch(inoPath);
             if (!r.ok) throw new Error('Fetch failed');
