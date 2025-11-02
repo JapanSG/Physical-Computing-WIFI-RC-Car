@@ -58,7 +58,8 @@
 
     async function tryLoadImagesFromFolder() {
         try {
-            const resp = await fetch('images/');
+            var abspath = location.pathname.replace(/(.*?)[^/]*\..*$/,'$1');
+            const resp = await fetch(abspath + 'images/');
             if (!resp.ok) throw new Error('no listing');
             const html = await resp.text();
             const parser = new DOMParser();
@@ -71,7 +72,7 @@
                     if (/^https?:\/\//i.test(l)) return l;
                     const parts = l.split('/').filter(Boolean);
                     const filename = parts[parts.length - 1];
-                    return 'images/' + filename;
+                    return abspath+'images/' + filename;
                 });
             }
         } catch (e) {
@@ -93,7 +94,7 @@
         if (!imgUrls.length) {
             const p = document.createElement('p');
             p.className = 'muted';
-            p.textContent = 'No images found in docs/images. Add files to that folder or update fallbackImages in script.js.';
+            p.textContent = 'No images found in '+ imgUrls +' Add files to that folder or update fallbackImages in script.js.';
             carousel.appendChild(p);
             return;
         }
