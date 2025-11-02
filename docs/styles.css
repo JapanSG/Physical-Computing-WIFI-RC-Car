@@ -192,8 +192,12 @@ body {
     justify-content: center;
 }
 .member{
-    width:180px;
+    width:230px;
     text-align:center;
+    background-color: rgb(68, 0, 86);
+    padding: 2em;
+    border-radius: 5px;
+    margin: 0px 1em;
 }
 .member img{
     width:160px;
