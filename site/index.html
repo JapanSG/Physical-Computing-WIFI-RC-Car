@@ -14,7 +14,11 @@
             <h1>RC-Car-WiFi</h1>
             <p class="tag">ESP32 + Arduino IDE — Wifi controlled RC car</p>
         </div>
-        <nav class="top-nav">
+
+        <!-- Mobile menu toggle -->
+        <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+
+        <nav class="top-nav" id="topNav" role="navigation" aria-label="Main navigation">
             <a href="#project">About</a>
             <a href="#gallery">Gallery</a>
             <a href="#controls">Controls</a>
@@ -23,6 +27,9 @@
             <a href="#team">Team</a>
         </nav>
     </header>
+
+    <!-- overlay used when mobile menu is open -->
+    <div id="mobileOverlay" class="mobile-overlay" hidden></div>
 
     <main>
         <section id="hero" class="hero">

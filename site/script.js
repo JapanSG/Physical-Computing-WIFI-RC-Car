@@ -10,6 +10,48 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
+    // Mobile nav elements
+    const menuToggle = document.getElementById('menuToggle');
+    const topNav = document.getElementById('topNav');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function openMobileNav() {
+        topNav.classList.add('open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        mobileOverlay.classList.add('show');   // use class to control visibility
+        mobileOverlay.hidden = false;          // keep DOM attribute in sync
+        // prevent body scroll when open
+        document.documentElement.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+        topNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileOverlay.classList.remove('show');
+        mobileOverlay.hidden = true;
+        document.documentElement.style.overflow = '';
+    }
+    function toggleMobileNav() {
+        if (topNav.classList.contains('open')) closeMobileNav();
+        else openMobileNav();
+    }
+
+    menuToggle.addEventListener('click', toggleMobileNav);
+    mobileOverlay.addEventListener('click', closeMobileNav);
+
+    // close the sidebar when a nav link is clicked (mobile)
+    document.querySelectorAll('#topNav a').forEach(a => {
+        a.addEventListener('click', () => {
+            if (window.matchMedia('(max-width:800px)').matches) closeMobileNav();
+        });
+    });
+
+    // close on Escape
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && topNav.classList.contains('open')) {
+            closeMobileNav();
+        }
+    });
+
     // If server exposes directory listing, this will parse it. Otherwise add filenames to fallbackImages.
     const fallbackImages = [
         // Add image filenames relative to site/images here, e.g. "front.jpg", "left-45.jpg"

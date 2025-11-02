@@ -211,10 +211,88 @@ body {
     font-size:0.85rem;
 }
 
-/* Responsive */
+/* Mobile menu toggle button (hidden on desktop) */
+.menu-toggle{
+    display:none;
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    color:#fff;
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:20px;
+    cursor:pointer;
+    align-self:center;
+}
+
+/* Side-nav / mobile nav styling */
+.top-nav{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+.top-nav a{ color:var(--muted); text-decoration:none; font-size:0.95rem; }
+.top-nav a:hover{ color:#fff; }
+
+/* overlay that dims the page when sidebar is open */
+.mobile-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    backdrop-filter: blur(3px);
+    z-index:48;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .22s ease;
+}
+
+/* show overlay when open (use class 'show' so JS + HTML hidden attribute mismatch isn't a problem) */
+.mobile-overlay.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* Mobile-specific adjustments: show toggle and transform nav into sidebar */
 @media (max-width:800px){
-    .top-nav{display:none}
-    .carousel img{height:160px}
-    .video-wrap iframe{height:260px}
-    .controls-grid .control-btn{min-width:100px}
+    .menu-toggle{ display:inline-flex; }
+
+    /* transform top-nav into a right-side hidden sidebar */
+    .top-nav{
+        position:fixed;
+        top:0;
+        right:0;               /* open from the right edge */
+        height:100vh;
+        width:260px;
+        flex-direction:column;
+        gap:0;
+        padding:28px 18px;
+        background: linear-gradient(180deg, rgba(26,8,50,0.98), rgba(10,5,28,0.96));
+        border-left:1px solid rgba(255,255,255,0.03);
+        transform: translateX(110%); /* hidden off-screen to the right */
+        transition: transform .28s cubic-bezier(.2,.9,.2,1);
+        z-index:50;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.6); /* shadow from the right */
+    }
+    .top-nav a{
+        display:block;
+        padding:12px 10px;
+        margin:4px 0;
+        color:var(--muted);
+        font-weight:500;
+    }
+    .top-nav a:hover{ color:#fff; background: rgba(255,255,255,0.02); border-radius:6px; }
+
+    /* When open — slide in from right */
+    .top-nav.open{
+        transform: translateX(0);
+    }
+    /* show overlay when open */
+    .mobile-overlay[hidden=false]{
+        opacity:1;
+        pointer-events:auto;
+    }
+
+    /* Keep header spacing reasonable on mobile */
+    .site-header{
+        align-items:center;
+    }
 }
