@@ -21,7 +21,7 @@
         <nav class="top-nav" id="topNav" role="navigation" aria-label="Main navigation">
             <a href="#project">About</a>
             <a href="#gallery">Gallery</a>
-            <a href="#controls">Controls</a>
+            <a href="#server">ESP32 Server</a>
             <a href="#arduino">Arduino</a>
             <a href="#video">Video</a>
             <a href="#team">Team</a>
@@ -36,7 +36,7 @@
             <h2>Control the car from your browser</h2>
             <p>Use keyboard or on-screen buttons to send commands to an ESP32-powered RC car over WiFi.</p>
             <div class="hero-actions">
-                <a class="btn primary" href="#controls">Try controls</a>
+                <a class="btn primary" href="#server">ESP32 Server</a>
                 <a class="btn" href="#gallery">View photos</a>
             </div>
         </section>
@@ -52,24 +52,20 @@
             </div>
         </section>
 
-        <section id="controls" class="card controls-section">
-            <h3>Remote Controls</h3>
-            <div class="controls-grid">
-                <button class="control-btn" data-cmd="forward">▲ Forward</button>
-                <div class="middle-row">
-                    <button class="control-btn" data-cmd="left">◄ Left</button>
-                    <button id="stopBtn" class="control-btn stop" data-cmd="stop">■ Stop</button>
-                    <button class="control-btn" data-cmd="right">► Right</button>
-                </div>
-                <button class="control-btn" data-cmd="back">▼ Back</button>
+        <!-- REPLACED: Controls section removed and replaced with ESP32 server info -->
+        <section id="server" class="card">
+            <h3>ESP32 Server (Wi‑Fi)</h3>
+            <p class="muted">Connect directly to the ESP32 access point or use this base address to send control requests.</p>
+
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;">
+                <label for="espIp" class="muted" style="min-width:120px">ESP32 IP:</label>
+                <input id="espIp" type="text" readonly value="http://192.168.4.1" style="padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;width:240px;">
+                <button id="copyIpBtn" class="btn">Copy</button>
             </div>
-            <div class="control-hint">
-                <p>Keyboard: W/A/S/D or arrow keys to control. Click buttons to send commands.</p>
-                <label>
-                    Controller base URL:
-                    <input id="controllerUrl" type="text" placeholder="http://192.168.4.1/command" />
-                </label>
-            </div>
+
+            <p class="control-hint muted" style="margin-top:10px">
+                Tip: after connecting to the ESP32 network, open the IP in your browser or use it as the base URL for API requests (e.g. http://192.168.4.1/forward).
+            </p>
         </section>
 
         <section id="arduino" class="card">
@@ -94,9 +90,9 @@
             <h3>Team Members</h3>
             <div class="team-grid">
                 <div class="member">
-                    <img src="https://via.placeholder.com/160x160?text=Member+1" alt="Member 1">
-                    <h4>Member One</h4>
-                    <p class="muted">Student ID: 0123456</p>
+                    <img src="images/members/67070234.jpg" alt="Member 1">
+                    <h4>Thanakrit Sriphiphattana</h4>
+                    <p class="muted">Student ID: 67070234</p>
                 </div>
                 <div class="member">
                     <img src="https://via.placeholder.com/160x160?text=Member+2" alt="Member 2">
@@ -106,6 +102,11 @@
                 <div class="member">
                     <img src="https://via.placeholder.com/160x160?text=Member+3" alt="Member 3">
                     <h4>Member Three</h4>
+                    <p class="muted">Student ID: 0123458</p>
+                </div>
+                <div class="member">
+                    <img src="https://via.placeholder.com/160x160?text=Member+3" alt="Member 3">
+                    <h4>Member four</h4>
                     <p class="muted">Student ID: 0123458</p>
                 </div>
             </div>

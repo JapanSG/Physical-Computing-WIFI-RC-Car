@@ -1,8 +1,7 @@
 /*
-  script.js
-  - populates gallery from /site/images (tries to parse folder listing; falls back to user-provided list)
-  - loads Arduino .ino file from ../RC-Car-WiFi-wAxis/RC-Car-WiFi-wAxis.ino
-  - provides button & keyboard control that sends requests to a configurable controller URL
+  Updated script.js: removed control/button/keyboard sending logic and added copy-to-clipboard
+  behavior for the ESP32 IP display. Other functionality (gallery, Arduino loader, mobile nav)
+  remains.
 */
 
 (() => {
@@ -18,9 +17,8 @@
     function openMobileNav() {
         topNav.classList.add('open');
         menuToggle.setAttribute('aria-expanded', 'true');
-        mobileOverlay.classList.add('show');   // use class to control visibility
-        mobileOverlay.hidden = false;          // keep DOM attribute in sync
-        // prevent body scroll when open
+        mobileOverlay.classList.add('show');
+        mobileOverlay.hidden = false;
         document.documentElement.style.overflow = 'hidden';
     }
     function closeMobileNav() {
@@ -70,9 +68,7 @@
                 .filter(h => h && /\.(jpe?g|png|gif|webp)$/i.test(h));
             if (links.length) {
                 return links.map(l => {
-                    // if it's an absolute URL, keep it
                     if (/^https?:\/\//i.test(l)) return l;
-                    // otherwise extract filename to avoid duplicated path segments like "images/images/..."
                     const parts = l.split('/').filter(Boolean);
                     const filename = parts[parts.length - 1];
                     return 'images/' + filename;
@@ -81,7 +77,6 @@
         } catch (e) {
             // ignore and fall back
         }
-        // fallback: use explicit filenames (if any)
         return fallbackImages.map(fn => 'images/' + fn);
     }
 
@@ -118,71 +113,34 @@
     prevBtn.addEventListener('click', scrollPrev);
     nextBtn.addEventListener('click', scrollNext);
 
-    // Controls & keyboard
-    const controlButtons = document.querySelectorAll('.control-btn');
-    let controllerBase = ''; // user-specified URL
-    const controllerInput = document.getElementById('controllerUrl');
-    controllerInput.addEventListener('change', () => {
-        controllerBase = controllerInput.value.trim().replace(/\/+$/, '');
-        localStorage.setItem('rc_controller_base', controllerBase);
-    });
-    // load saved
-    controllerBase = localStorage.getItem('rc_controller_base') || '';
-    controllerInput.value = controllerBase;
+    // COPY IP functionality (replaces controls)
+    const copyBtn = document.getElementById('copyIpBtn');
+    const ipInput = document.getElementById('espIp');
 
-    function setBtnActive(btn) {
-        controlButtons.forEach(b => b.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-    }
-
-    async function sendCommand(cmd) {
-        // cmd: forward/back/left/right/stop
-        console.log('sendCommand', cmd);
-        setBtnActive(
-            Array.from(controlButtons).find(b => b.dataset.cmd === cmd)
-        );
-        if (!controllerBase) {
-            console.warn('Controller URL not set. Set it in the input field to enable network control.');
-            return;
-        }
-        // example: controller supports GET ?cmd=forward or endpoints /forward
-        const tryUrls = [
-            `${controllerBase}?cmd=${encodeURIComponent(cmd)}`,
-            `${controllerBase}/${encodeURIComponent(cmd)}`,
-        ];
-        for (const url of tryUrls) {
+    if (copyBtn && ipInput) {
+        copyBtn.addEventListener('click', async () => {
+            const text = ipInput.value || ipInput.getAttribute('value') || ipInput.textContent || 'http://192.168.4.1';
             try {
-                await fetch(url, { method: 'GET' });
-                return;
-            } catch (e) {
-                // try next
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    // fallback
+                    ipInput.select();
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                }
+                const prev = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.disabled = true;
+                setTimeout(() => {
+                    copyBtn.textContent = prev;
+                    copyBtn.disabled = false;
+                }, 1400);
+            } catch (err) {
+                alert('Copy failed. IP: ' + text);
             }
-        }
-    }
-
-    controlButtons.forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const cmd = btn.dataset.cmd;
-            await sendCommand(cmd);
         });
-    });
-
-    // keyboard handling
-    const keyMap = {
-        'w': 'forward', 'ArrowUp': 'forward',
-        's': 'back', 'ArrowDown': 'back',
-        'a': 'left', 'ArrowLeft': 'left',
-        'd': 'right', 'ArrowRight': 'right',
-        ' ': 'stop'
-    };
-    window.addEventListener('keydown', (e) => {
-        const key = e.key;
-        const cmd = keyMap[key];
-        if (cmd) {
-            e.preventDefault();
-            sendCommand(cmd);
-        }
-    });
+    }
 
     // Arduino source loader
     const codeView = document.getElementById('codeView');
@@ -202,8 +160,8 @@
         }
     }
 
-    loadCodeBtn.addEventListener('click', loadArduinoCode);
-    downloadCodeBtn.addEventListener('click', async () => {
+    if (loadCodeBtn) loadCodeBtn.addEventListener('click', loadArduinoCode);
+    if (downloadCodeBtn) downloadCodeBtn.addEventListener('click', async () => {
         const inoPath = '../RC-Car-WiFi-wAxis/RC-Car-WiFi-wAxis.ino';
         try {
             const r = await fetch(inoPath);

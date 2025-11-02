@@ -189,6 +189,7 @@ body {
     display:flex;
     gap:16px;
     flex-wrap:wrap;
+    justify-content: center;
 }
 .member{
     width:180px;
