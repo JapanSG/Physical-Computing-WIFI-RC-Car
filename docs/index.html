@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>WIFI RC Car Control — RC-Car-WiFi Project</title>
+    <title>WIFI RC Car Project</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="images/icon.png">
 </head>
 <body>
     <header class="site-header">
         <div class="brand">
-            <h1>RC-Car-WiFi</h1>
+            <h1>WIFI-RC-Car</h1>
             <p class="tag">ESP32 + Arduino IDE — Wifi controlled RC car</p>
         </div>
 
@@ -44,11 +45,9 @@
         <section id="project" class="card">
             <h3>Abstract</h3>
             <p>
-                RC-Car-WiFi is a student project implementing a remote-controlled car using an ESP32 microcontroller
-                programmed with the Arduino IDE. The car hosts a simple WiFi-based control API and can be driven from
-                any web browser. Controls include forward, back, left, right and stop. The website demonstrates the
-                hardware, shows photos from multiple angles, contains the Arduino source code and embeds the project
-                presentation video.
+                WIFI-RC-Car เป็นโปรเจกค์รถบังคับโดย WIFI ซื่งใช้ ESP32 เป็น MCU หลักในการควบคุมรถ และเขียนโคด Arduino ลง ESP32
+                รถบังคับสามารถขับได้ปกติ(เดินหน้า, ถอยหลัง, เลี้ยวซ้าย, เลี้ยวขวา) โดยควบคุมผ่าน WebBrowser สามารถใช้ Keyboard หรือ ปุ่ม
+                บน Website บังคับได้
             </p>
         </section>
 
@@ -63,25 +62,40 @@
             </div>
         </section>
 
+        <section id="project" class="card">
+            <h3>Experience</h3>
+            <p>
+                ตัวโปรเจ็คนี้เริ่มทำตั้งแต่สัปดาห์ที่ 2 ของเทอมนี้ ซึ่งตอนแรกได้วางแผนให้ตัวรถมี feature มากกว่านี้ เช่น
+                ความเร่งที่ปรับได้ของรถ, เบรครถ แต่เนื่องจากเวลาที่จำกัด กับโปรเจ็ควิชาอื่นทำให้ต้องตัดทิ้ง ตัวงานกว่าจะได้
+                ทำจริงก็หลังจากเริ่มไปแล้วเกือบ 2 สัปดาห์ เพราะในกลุ่มไม่มีใครเคยใช้ microcontroller มาก่อนและความรู้
+                ด้านนี้จำกัดมากๆ จึงเสียเวลานานในการศึกษาเตรียมตัว 
+            </p>
+            <p>
+                กระบวนการทำงานของกลุ่มจะทำเป็นขั้นเล็ก ๆ และเป็นส่วน
+                เช่น สัปดาห์นี้ทดสอบ motor สัปดาห์ต่อไปทดสอบ Wifi แล้วทำอย่างนี้เรื่อย ๆ จนสัปดาห์สุดท้ายที่ส่วนแต่
+                ละส่วนใช้งานแยกกันได้แต่ยังไม่ได้ต่อร่วมกัน 
+            </p>
+            <p>
+                อุปสรรคที่พบเจอหลัก ๆ คือโปรเจ็คอื่น มาชนกับโปรเจ็คนี้ ทำให้มีเวลาน้อยลง 
+                นอกจากนี้ยังมีปัญหาด้านขาดความรู้ด้าน Electronics ทำให้มีหลายครั้งที่ซื้อ
+                อุปกรณ์มาผิดแล้วต้องไปซื้อใหม่ หรือมีบางครั้งที่วงจรไม่ทำงานเพราะต่อผิด
+            </p>
+        </section>
+
         <!-- REPLACED: Controls section removed and replaced with ESP32 server info -->
         <section id="server" class="card">
             <h3>ESP32 Server (Wi‑Fi)</h3>
-            <p class="muted">Connect directly to the ESP32 access point or use this base address to send control requests.</p>
+            <p class="muted">หลังจากเชื่อม WIFI ของ ESP32 แล้ว สามารถบังคับรถได้โดยตรงโดยใช้ IP ด้านล้างนี้(เอา IP ไปเปิดใน WebBrowser)</p>
 
             <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px;">
                 <label for="espIp" class="muted" style="min-width:120px">ESP32 IP:</label>
                 <input id="espIp" type="text" readonly value="http://192.168.4.1" style="padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;width:240px;">
                 <button id="copyIpBtn" class="btn">Copy</button>
             </div>
-
-            <p class="control-hint muted" style="margin-top:10px">
-                Tip: after connecting to the ESP32 network, open the IP in your browser or use it as the base URL for API requests (e.g. http://192.168.4.1/forward).
-            </p>
         </section>
 
         <section id="arduino" class="card">
             <h3>Arduino (ESP32) Source</h3>
-            <p class="muted">Source file loaded from ../RC-Car-WiFi-wAxis/RC-Car-WiFi-wAxis.ino</p>
             <div class="code-actions">
                 <button id="loadCodeBtn" class="btn">Load Arduino Source</button>
                 <button id="downloadCodeBtn" class="btn">Download</button>
@@ -93,7 +107,7 @@
             <h3>Presentation Video</h3>
             <div class="video-wrap">
                 <!-- Replace VIDEO_ID with actual YouTube video id -->
-                <iframe id="ytPlayer" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+                <iframe id="ytPlayer" src="https://www.youtube.com/embed/S_QohmxtWRE?si=L_s0Jvy-2aiuyIhK" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -125,7 +139,7 @@
     </main>
 
     <footer class="site-footer">
-        <small>© RC-Car-WiFi Project — Placeholders used for member photos and video. Update controller URL and VIDEO_ID.</small>
+        <small>© RC-Car-WiFi Project -- KMITL IT -- Year 2 Semester 1</small>
     </footer>
 
     <script src="script.js"></script>
