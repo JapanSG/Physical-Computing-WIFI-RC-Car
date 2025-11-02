@@ -2,6 +2,7 @@
   Updated script.js: removed control/button/keyboard sending logic and added copy-to-clipboard
   behavior for the ESP32 IP display. Other functionality (gallery, Arduino loader, mobile nav)
   remains.
+  Author : Me
 */
 
 (() => {
