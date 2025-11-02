@@ -50,35 +50,21 @@
         }
     });
 
-    // If server exposes directory listing, this will parse it. Otherwise add filenames to fallbackImages.
-    const fallbackImages = [
-        // Add image filenames relative to docs/images here, e.g. "front.jpg", "left-45.jpg"
-        // "front.jpg", "left.jpg", "right.jpg"
+    // List of images to load from docs/images directory
+    const imagesList = [
+        'front.jpg',
+        'back.jpg', 
+        'top right.jpg',
+        'right_side.jpg',
+        'top_left.jpg',
+        'top_down.jpg',
+        'back.jpg'
+        // Add all your image filenames here
     ];
 
     async function tryLoadImagesFromFolder() {
-        try {
-            var abspath = location.pathname.replace(/(.*?)[^/]*\..*$/,'$1');
-            const resp = await fetch(abspath + 'images/');
-            if (!resp.ok) throw new Error('no listing');
-            const html = await resp.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const links = Array.from(doc.querySelectorAll('a'))
-                .map(a => a.getAttribute('href'))
-                .filter(h => h && /\.(jpe?g|png|gif|webp)$/i.test(h));
-            if (links.length) {
-                return links.map(l => {
-                    if (/^https?:\/\//i.test(l)) return l;
-                    const parts = l.split('/').filter(Boolean);
-                    const filename = parts[parts.length - 1];
-                    return abspath+'images/' + filename;
-                });
-            }
-        } catch (e) {
-            // ignore and fall back
-        }
-        return fallbackImages.map(fn => 'docs/images/' + fn);
+        // Return array of image paths
+        return imagesList.map(filename => `images/${filename}`);
     }
 
     function makeImgEl(src, alt) {
@@ -94,7 +80,7 @@
         if (!imgUrls.length) {
             const p = document.createElement('p');
             p.className = 'muted';
-            p.textContent = 'No images found in '+ imgUrls +' Add files to that folder or update fallbackImages in script.js.';
+            p.textContent = 'No images configured. Add image filenames to imagesList in script.js.';
             carousel.appendChild(p);
             return;
         }
