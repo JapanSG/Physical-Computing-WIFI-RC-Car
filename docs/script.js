@@ -59,7 +59,7 @@
     async function tryLoadImagesFromFolder() {
         try {
             var abspath = location.pathname.replace(/(.*?)[^/]*\..*$/,'$1');
-            const resp = await fetch(abspath + 'images/');
+            const resp = await fetch(abspath + 'docs/images/');
             if (!resp.ok) throw new Error('no listing');
             const html = await resp.text();
             const parser = new DOMParser();
@@ -72,7 +72,7 @@
                     if (/^https?:\/\//i.test(l)) return l;
                     const parts = l.split('/').filter(Boolean);
                     const filename = parts[parts.length - 1];
-                    return abspath+'images/' + filename;
+                    return abspath+'docs/images/' + filename;
                 });
             }
         } catch (e) {
