@@ -26,9 +26,18 @@
             const links = Array.from(doc.querySelectorAll('a'))
                 .map(a => a.getAttribute('href'))
                 .filter(h => h && /\.(jpe?g|png|gif|webp)$/i.test(h));
-            if (links.length) return links.map(l => 'images/' + l.replace(/^\/+/, ''));
+            if (links.length) {
+                return links.map(l => {
+                    // if it's an absolute URL, keep it
+                    if (/^https?:\/\//i.test(l)) return l;
+                    // otherwise extract filename to avoid duplicated path segments like "images/images/..."
+                    const parts = l.split('/').filter(Boolean);
+                    const filename = parts[parts.length - 1];
+                    return 'images/' + filename;
+                });
+            }
         } catch (e) {
-            // ignore
+            // ignore and fall back
         }
         // fallback: use explicit filenames (if any)
         return fallbackImages.map(fn => 'images/' + fn);
